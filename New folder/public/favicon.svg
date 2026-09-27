@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F2CE6B"/>
+      <stop offset="1" stop-color="#C9A227"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="#070B09"/>
+  <rect x="1.5" y="1.5" width="61" height="61" rx="12.5" stroke="url(#g)" stroke-width="2"/>
+  <!-- N letterform built from circuit traces -->
+  <path d="M16 46V18h4l12 22V18h4v28h-4L20 24v22h-4z" fill="url(#g)"/>
+  <circle cx="48" cy="18" r="2.5" fill="#10B981"/>
+  <circle cx="48" cy="46" r="2.5" fill="#E3B341"/>
+  <path d="M48 20.5v21" stroke="#25332B" stroke-width="2" stroke-dasharray="3 3"/>
+  <circle cx="12" cy="12" r="1.75" fill="#22D3EE"/>
+  <path d="M13.5 13.5l6 6" stroke="#25332B" stroke-width="1.5"/>
+</svg>

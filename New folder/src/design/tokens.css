@@ -1,0 +1,61 @@
+/* ============================================================
+   NexusAI Design Tokens — the single source of visual truth.
+   Every color/layout decision derives from these variables.
+
+   THEME: "Obsidian & Emerald" — rich dark, emerald + gold,
+   jewel-tone accents. No purple, no pink.
+   ============================================================ */
+
+:root {
+  /* Background layers — deep obsidian with a faint green cast */
+  --bg-base: #070b09;
+  --bg-surface: #0d1310;
+  --bg-elevated: #16201a;
+  --bg-border: #25332b;
+
+  /* Brand — rich emerald primary, gold secondary accent */
+  --brand-primary: #10b981;
+  --brand-secondary: #f2ce6b;
+  --brand-glow: #10b98126;
+
+  /* Status colors (semantic, keep signal strength) */
+  --status-success: #22c55e;
+  --status-warning: #f59e0b;
+  --status-error: #ef4444;
+  --status-info: #38bdf8;
+
+  /* Agent colors — rich jewel tones for contrast (no purple/pink) */
+  --agent-coder: #e3b341;
+  --agent-tester: #34d399;
+  --agent-security: #ef4444;
+  --agent-docs: #f59e0b;
+  --agent-planner: #c9a227;
+  --agent-reviewer: #22d3ee;
+  --agent-optimizer: #fb923c;
+  --agent-debugger: #ff7a5c;
+  --agent-validator: #2dd4bf;
+  /* Remaining agents from the backend registry (
+     app/llm/routing.py AGENT_LLM_MAP) — jewel tones, no purple/pink. */
+  --agent-refactor: #7aa2f7;
+  --agent-summarizer: #9ca3af;
+  --agent-research: #a3e635;
+  --agent-hallucination_detector: #d97706;
+  --agent-cost_controller: #16a34a;
+  --agent-hitl_controller: #fbbf24;
+
+  /* Text — cool whites with a soft sage cast */
+  --text-primary: #eef4f0;
+  --text-secondary: #a9c0b3;
+  --text-muted: #5c6d63;
+  --text-accent: #6ee7b7;
+
+  /* Typography */
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --font-display: 'Playfair Display', Georgia, serif;
+
+  /* Radii */
+  --radius-card: 12px;
+  --radius-button: 8px;
+  --radius-input: 8px;
+}

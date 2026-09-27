@@ -1,0 +1,185 @@
+@import './design/tokens.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    color-scheme: dark;
+    background: var(--bg-base);
+  }
+
+  body {
+    @apply bg-base text-text-primary font-sans antialiased;
+    background-image: radial-gradient(
+        circle at 12% 0%,
+        rgb(16 185 129 / 0.09),
+        transparent 42%
+      ),
+      radial-gradient(circle at 88% 100%, rgb(242 206 107 / 0.06), transparent 48%);
+    background-attachment: fixed;
+  }
+
+  /* Ambient aurora — two slowly drifting emerald + gold glows behind everything. */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background:
+      radial-gradient(34rem 26rem at 18% 12%, rgb(16 185 129 / 0.08), transparent 65%),
+      radial-gradient(40rem 30rem at 85% 80%, rgb(242 206 107 / 0.06), transparent 65%);
+    animation: aurora-drift 22s ease-in-out infinite alternate;
+  }
+
+  ::selection {
+    background: rgb(16 185 129 / 0.4);
+    color: #fff;
+  }
+
+  /* Slim dark scrollbars */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--bg-border) transparent;
+  }
+  *::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  *::-webkit-scrollbar-thumb {
+    background: var(--bg-border);
+    border-radius: 8px;
+  }
+  *::-webkit-scrollbar-track {
+    background: transparent;
+  }
+}
+
+@layer components {
+  .card {
+    @apply rounded-card border border-border bg-surface shadow-card;
+    transition:
+      border-color 0.3s ease,
+      box-shadow 0.3s ease,
+      transform 0.3s ease;
+  }
+  .card:hover {
+    border-color: color-mix(in srgb, var(--brand-primary) 45%, transparent);
+    box-shadow:
+      0 1px 2px rgb(0 0 0 / 0.4),
+      0 4px 16px rgb(0 0 0 / 0.25),
+      0 0 24px color-mix(in srgb, var(--brand-glow) 60%, transparent);
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-button font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-base disabled:pointer-events-none disabled:opacity-50;
+  }
+
+  /* Gold sheen — sweeps across on hover (rich "gilded" button feel). */
+  .btn-gold-shine {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .btn-gold-shine::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(
+      105deg,
+      transparent 40%,
+      rgb(255 255 255 / 0.35) 50%,
+      transparent 60%
+    );
+    background-size: 250% 100%;
+    background-position: 130% 0;
+    transition: background-position 0.7s ease;
+  }
+  .btn-gold-shine:hover::after {
+    background-position: -30% 0;
+  }
+
+  /* Continuous slow shimmer for hero CTAs (e.g. Run Task). */
+  .btn-gold-live::after {
+    background-position: 200% 0;
+    transition: none;
+    animation: shine-sweep 3.2s linear infinite;
+  }
+
+  /* Animated gold gradient text — brand wordmarks & hero numbers. */
+  .text-gradient-gold {
+    background: linear-gradient(
+      100deg,
+      var(--brand-primary) 0%,
+      var(--brand-secondary) 45%,
+      var(--brand-primary) 70%,
+      #8ff0c9 100%
+    );
+    background-size: 220% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: shine-sweep 6s linear infinite;
+  }
+
+  .input {
+    @apply w-full rounded-input border border-border bg-elevated px-3 py-2 text-sm text-text-primary placeholder:text-text-muted focus:border-brand focus:outline-none focus:ring-1 focus:ring-brand;
+  }
+
+  .label {
+    @apply mb-1.5 block text-xs font-medium text-text-secondary;
+  }
+
+  .mono {
+    @apply font-mono;
+  }
+
+  /* Subtle grid backdrop used on auth pages */
+  .grid-backdrop {
+    background-image: linear-gradient(rgb(37 51 43 / 0.45) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(37 51 43 / 0.45) 1px, transparent 1px);
+    background-size: 42px 42px;
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+  }
+
+  .skeleton {
+    @apply relative overflow-hidden rounded-md bg-elevated;
+  }
+  .skeleton::after {
+    content: '';
+    @apply absolute inset-0 animate-shimmer;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgb(52 211 153 / 0.08),
+      transparent
+    );
+  }
+}
+
+@keyframes aurora-drift {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0.7;
+  }
+  50% {
+    transform: translate3d(-3%, 4%, 0) scale(1.06);
+    opacity: 1;
+  }
+  100% {
+    transform: translate3d(3%, -3%, 0) scale(1.02);
+    opacity: 0.75;
+  }
+}
+
+@keyframes shine-sweep {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -50% 0;
+  }
+}

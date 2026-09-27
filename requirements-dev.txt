@@ -1,0 +1,45 @@
+# Curated subset for FAST local venv testing on Python 3.13 (see BRAIN.md D4).
+# Heavy / lazy-imported deps (chromadb, litellm, sentence-transformers, asyncpg,
+# torch, docker, opentelemetry) are intentionally OMITTED — tests mock/fake them.
+# The full faithful set lives in requirements.txt (used by the Docker image).
+
+# ── Web framework ──────────────────────────────────────────────────────────
+fastapi>=0.115.0
+uvicorn[standard]>=0.30.6
+python-multipart>=0.0.12
+httpx>=0.27.2
+
+# ── Database (SQLite async for tests; models are Postgres-portable) ─────────
+sqlalchemy[asyncio]>=2.0.35
+aiosqlite>=0.20.0
+alembic>=1.13.2
+
+# ── Validation ─────────────────────────────────────────────────────────────
+pydantic>=2.9.2
+pydantic-settings>=2.5.2
+email-validator>=2.2.0
+
+# ── Cache / queue ──────────────────────────────────────────────────────────
+redis>=5.1.0
+fakeredis>=2.24.0
+celery>=5.4.0
+
+# ── Auth ───────────────────────────────────────────────────────────────────
+python-jose[cryptography]>=3.3.0
+passlib[bcrypt]>=1.7.4
+# NOTE: passlib 1.7.4 logs a harmless "(trapped) error reading bcrypt version"
+# warning with modern bcrypt 4.x — hashing/verifying still works correctly.
+
+# ── Utils / logging ────────────────────────────────────────────────────────
+structlog>=24.4.0
+prometheus-client>=0.21.0
+tenacity>=9.0.0
+python-dotenv>=1.0.1
+
+# ── Testing ────────────────────────────────────────────────────────────────
+pytest>=8.3.3
+pytest-asyncio>=0.24.0
+pytest-cov>=5.0.0
+
+# ── Static type checking ────────────────────────────────────────────────────
+mypy>=1.11
