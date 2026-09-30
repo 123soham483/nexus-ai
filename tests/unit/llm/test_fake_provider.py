@@ -49,8 +49,18 @@ async def test_fake_provider_success_has_no_fallback():
 
 
 @pytest.mark.asyncio
-async def test_real_provider_without_fake_mode_still_fails_without_keys():
-    """Default path (litellm, no keys) still raises the controlled error."""
+async def test_real_provider_without_fake_mode_still_fails_without_keys(monkeypatch):
+    """Default path (litellm, no keys) still raises the controlled error.
+
+    Clears every cloud credential on the already-imported settings singleton —
+    chdir alone cannot help because Settings() loads the developer .env at
+    import time. Otherwise a real Gemini key makes the call SUCCEED, which is
+    an environment property, not a code property.
+    """
+    from app.llm import routing as routing_module
+
+    for field in routing_module._CLOUD_KEY_FIELDS.values():
+        monkeypatch.setattr(routing_module.settings, field, "", raising=False)
     p = LLMProvider(max_retries=1, retry_backoff_base=0)  # real path, no keys
     with pytest.raises(AllProvidersFailedError):
         await p.complete([LLMMessage(role="user", content="hi")])
